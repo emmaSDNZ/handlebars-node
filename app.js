@@ -1,9 +1,15 @@
 const express = require('express')
+const hbs = require('hbs');
+
 const app = express()
 const port = 3000;
 
 
+//Handlebar
+
 app.set('view engine', 'hbs');
+hbs.registerPartials( __dirname + '/views/partials');
+
 //Servir contenido Estatico
 app.use( express.static('public') )
 /*
@@ -15,7 +21,7 @@ se cambian los enlaces del HTML por los de la ruta del servidor.
 // quiera renderizar.
 
 
-app.get('/hbs', (req, res)=> {
+app.get('/', (req, res)=> {
     res.render('home', {
       nombre: 'Emanuel',
       titulo: 'Curso Node'
@@ -24,12 +30,18 @@ app.get('/hbs', (req, res)=> {
 
 app.get('/generic', (req, res)=> {
     //  http://localhost:3000/generic
-    res.sendFile( __dirname + '/public/generic.html')
+    res.render('generic', {
+      nombre: 'Emanuel',
+      titulo: 'Curso Node'
+    })
 });
 
 app.get('/elements', (req, res)=> {
     //  http://localhost:3000/generic
-    res.sendFile( __dirname + '/public/elements.html')
+    res.render('elements', {
+      nombre: 'Emanuel',
+      titulo: 'Curso Node'
+    })
 });
 
 app.get('*', (req, res)=>{
